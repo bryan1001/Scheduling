@@ -39,11 +39,13 @@ st.session_state["num_days"] = num_days
 @st.fragment(run_every=0.1)
 def single_cal(month):
     events = st.session_state["events"][:]
+    events_by_date = {event["start"]: event for event in events}
+
     if "events_new" in st.session_state:
         for event in st.session_state["events_new"]:
-            existing_events = [e for e in events if e["start"] == event["start"]]
-            if not existing_events:
+            if event["start"] not in events_by_date:
                 events.append(event)
+                events_by_date[event["start"]] = event
 
     calendar_options = {
         "headerToolbar": {
