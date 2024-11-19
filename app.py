@@ -36,7 +36,7 @@ st.session_state["start_date"] = start_date
 st.session_state["num_days"] = num_days
 
 
-@st.fragment(run_every=0.1)
+@st.fragment(run_every=1)
 def single_cal(month):
     events = st.session_state["events"][:]
     events_by_date = {event["start"]: event for event in events}
